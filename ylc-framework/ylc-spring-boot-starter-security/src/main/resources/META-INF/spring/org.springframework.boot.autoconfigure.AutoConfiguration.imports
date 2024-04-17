@@ -1,0 +1,3 @@
+com.code.ylc.framework.security.config.YlcSecurityAutoConfiguration
+com.code.ylc.framework.security.config.YlcWebSecurityConfigurerAdapter
+com.code.ylc.framework.operatelog.config.YlcOperateLogV2Configuration

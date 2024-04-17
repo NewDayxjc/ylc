@@ -1,0 +1,7 @@
+com.code.ylc.framework.apilog.config.YlcApiLogAutoConfiguration
+com.code.ylc.framework.jackson.config.YlcJacksonAutoConfiguration
+com.code.ylc.framework.swagger.config.YlcSwaggerAutoConfiguration
+com.code.ylc.framework.web.config.YlcWebAutoConfiguration
+com.code.ylc.framework.xss.config.YlcXssAutoConfiguration
+com.code.ylc.framework.banner.config.YlcBannerAutoConfiguration
+com.code.ylc.framework.errorcode.config.YlcErrorCodeAutoConfiguration

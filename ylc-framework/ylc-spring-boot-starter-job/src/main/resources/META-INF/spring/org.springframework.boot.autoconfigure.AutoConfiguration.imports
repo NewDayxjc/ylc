@@ -1,0 +1,2 @@
+com.code.ylc.framework.quartz.config.YlcQuartzAutoConfiguration
+com.code.ylc.framework.quartz.config.YlcAsyncAutoConfiguration

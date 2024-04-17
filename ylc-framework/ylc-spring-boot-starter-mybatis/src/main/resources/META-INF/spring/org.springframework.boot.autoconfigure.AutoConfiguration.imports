@@ -1,0 +1,3 @@
+com.code.ylc.framework.datasource.config.YlcDataSourceAutoConfiguration
+com.code.ylc.framework.mybatis.config.YlcMybatisAutoConfiguration
+com.code.ylc.framework.translate.config.YlcTranslateAutoConfiguration
