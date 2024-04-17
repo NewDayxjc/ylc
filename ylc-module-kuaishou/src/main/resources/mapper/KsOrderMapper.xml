@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylc.component.kuaishou.mapper.KsOrderMapper">
+    
+    <resultMap type="com.ylc.component.kuaishou.domain.KsOrder" id="KsOrderResult">
+        <result property="orderId"    column="order_id"    />
+        <result property="orderStatus"    column="order_status"    />
+        <result property="ksBuyerNick"    column="ks_buyer_nick"    />
+        <result property="ksBuyerRemark"    column="ks_buyer_remark"    />
+        <result property="appKey"    column="app_key"    />
+        <result property="openId"    column="open_id"    />
+        <result property="ksShopName"    column="ks_shop_name"    />
+        <result property="ksOrderMobile"    column="ks_order_mobile"    />
+        <result property="ksRealName"    column="ks_real_name"    />
+        <result property="ksIdCard"    column="ks_id_card"    />
+        <result property="ksProvince"    column="ks_province"    />
+        <result property="ksProvinceCode"    column="ks_province_code"    />
+        <result property="ksCity"    column="ks_city"    />
+        <result property="ksCityCode"    column="ks_city_code"    />
+        <result property="ksDistrictCode"    column="ks_district_code"    />
+        <result property="ksDistrict"    column="ks_district"    />
+        <result property="ksAddressDetail"    column="ks_address_detail"    />
+        <result property="ksRealNameStatus"    column="ks_real_name_status"    />
+        <result property="ksDeliveryName"    column="ks_delivery_name"    />
+        <result property="ksDeliveryNumber"    column="ks_delivery_number"    />
+        <result property="iccid"    column="iccid"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="orderCreateTime"    column="order_create_time"    />
+        <result property="orderSendTime"    column="order_send_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="skuNick"    column="sku_nick"    />
+        <result property="signTime" column="sign_time"/>
+        <result property="signStatus" column="sign_status"/>
+        <result property="age" column="age"/>
+        <result property="sex" column="sex"/>
+
+    </resultMap>
+
+    <sql id="selectKsOrderVo"> select order_id, order_status, ks_buyer_nick, ks_buyer_remark, app_key, open_id, ks_shop_name, ks_order_mobile, ks_real_name, ks_id_card, ks_province, ks_province_code, ks_city, ks_city_code, ks_district_code, ks_district, ks_address_detail, ks_real_name_status, ks_delivery_name, ks_delivery_number, iccid, del_flag, create_by, create_time, order_create_time, order_send_time, update_by, update_time, remark, sku_nick, sign_time, sign_status, age, sex from ks_order </sql>
+
+
+    <select id="selectKsOrderList" parameterType="com.ylc.component.kuaishou.domain.KsOrder" resultMap="KsOrderResult">
+        <include refid="selectKsOrderVo"/>
+        <where>
+            <if test="orderId != null"> and order_id = #{orderId}</if>
+
+            <if test="orderStatus != null  and orderStatus != ''"> and order_status = #{orderStatus}</if>
+            <if test="ksBuyerNick != null  and ksBuyerNick != ''"> and ks_buyer_nick = #{ksBuyerNick}</if>
+            <if test="ksBuyerRemark != null  and ksBuyerRemark != ''"> and ks_buyer_remark = #{ksBuyerRemark}</if>
+            <if test="appKey != null  and appKey != ''"> and app_key = #{appKey}</if>
+            <if test="openId != null  and openId != ''"> and open_id = #{openId}</if>
+            <if test="ksShopName != null  and ksShopName != ''"> and ks_shop_name like concat('%', #{ksShopName}, '%')</if>
+            <if test="ksOrderMobile != null  and ksOrderMobile != ''"> and ks_order_mobile = #{ksOrderMobile}</if>
+            <if test="ksRealName != null  and ksRealName != ''"> and ks_real_name like concat('%', #{ksRealName}, '%')</if>
+            <if test="ksIdCard != null  and ksIdCard != ''"> and ks_id_card = #{ksIdCard}</if>
+            <if test="ksProvince != null  and ksProvince != ''"> and ks_province = #{ksProvince}</if>
+            <if test="ksProvinceCode != null  and ksProvinceCode != ''"> and ks_province_code = #{ksProvinceCode}</if>
+            <if test="ksCity != null  and ksCity != ''"> and ks_city = #{ksCity}</if>
+            <if test="ksCityCode != null  and ksCityCode != ''"> and ks_city_code = #{ksCityCode}</if>
+            <if test="ksDistrictCode != null  and ksDistrictCode != ''"> and ks_district_code = #{ksDistrictCode}</if>
+            <if test="ksDistrict != null  and ksDistrict != ''"> and ks_district = #{ksDistrict}</if>
+            <if test="ksAddressDetail != null  and ksAddressDetail != ''"> and ks_address_detail = #{ksAddressDetail}</if>
+            <if test="ksRealNameStatus != null  and ksRealNameStatus != ''"> and ks_real_name_status = #{ksRealNameStatus}</if>
+            <if test="ksDeliveryName != null  and ksDeliveryName != ''"> and ks_delivery_name like concat('%', #{ksDeliveryName}, '%')</if>
+            <if test="ksDeliveryNumber != null  and ksDeliveryNumber != ''"> and ks_delivery_number = #{ksDeliveryNumber}</if>
+            <if test="iccid != null  and iccid != ''"> and iccid = #{iccid}</if>
+            <if test="skuNick != null  and skuNick != ''"> and sku_nick = #{skuNick}</if>
+            <if test="signTime != null "> and sign_time = #{signTime}</if>
+            <if test="signStatus != null and signStatus != ''"> and sign_status = #{signStatus}</if>
+            <if test="age != null "> and age = #{age}</if>
+            <if test="sex != null "> and sex = #{sex}</if>
+            <if test="beginTime != null">
+                and order_create_time >= #{beginTime}
+            </if>
+            <if test="endTime != null">
+                and order_create_time &lt;= #{endTime}
+            </if>
+            <if test="orderSendTime != null "> and order_send_time = #{orderSendTime}</if>
+        </where>
+        order by order_create_time desc
+    </select>
+    
+    <select id="selectKsOrderByOrderId" parameterType="Long" resultMap="KsOrderResult">
+        <include refid="selectKsOrderVo"/>
+        where order_id = #{orderId}
+    </select>
+        
+    <insert id="insertKsOrder" parameterType="com.ylc.component.kuaishou.domain.KsOrder" useGeneratedKeys="true" keyProperty="orderId">
+        insert into ks_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">order_id,</if>
+            <if test="orderStatus != null">order_status,</if>
+            <if test="ksBuyerNick != null">ks_buyer_nick,</if>
+            <if test="ksBuyerRemark != null">ks_buyer_remark,</if>
+            <if test="appKey != null">app_key,</if>
+            <if test="openId != null">open_id,</if>
+            <if test="ksShopName != null">ks_shop_name,</if>
+            <if test="ksOrderMobile != null">ks_order_mobile,</if>
+            <if test="ksRealName != null">ks_real_name,</if>
+            <if test="ksIdCard != null">ks_id_card,</if>
+            <if test="ksProvince != null">ks_province,</if>
+            <if test="ksProvinceCode != null">ks_province_code,</if>
+            <if test="ksCity != null">ks_city,</if>
+            <if test="ksCityCode != null">ks_city_code,</if>
+            <if test="ksDistrictCode != null">ks_district_code,</if>
+            <if test="ksDistrict != null">ks_district,</if>
+            <if test="ksAddressDetail != null">ks_address_detail,</if>
+            <if test="ksRealNameStatus != null">ks_real_name_status,</if>
+            <if test="ksDeliveryName != null">ks_delivery_name,</if>
+            <if test="ksDeliveryNumber != null">ks_delivery_number,</if>
+            <if test="iccid != null">iccid,</if>
+            <if test="skuNick != null">sku_nick,</if>
+            <if test="signTime != null "> sign_time,</if>
+            <if test="signStatus != null and signStatus != ''"> signStatus,</if>
+            <if test="age != null "> age,</if>
+            <if test="sex != null ">  sex,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="orderCreateTime != null">order_create_time,</if>
+            <if test="orderSendTime != null">order_send_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null and orderId !='' ">#{orderId},</if>
+
+            <if test="orderStatus != null">#{orderStatus},</if>
+            <if test="ksBuyerNick != null">#{ksBuyerNick},</if>
+            <if test="ksBuyerRemark != null">#{ksBuyerRemark},</if>
+            <if test="appKey != null">#{appKey},</if>
+            <if test="openId != null">#{openId},</if>
+            <if test="ksShopName != null">#{ksShopName},</if>
+            <if test="ksOrderMobile != null">#{ksOrderMobile},</if>
+            <if test="ksRealName != null">#{ksRealName},</if>
+            <if test="ksIdCard != null">#{ksIdCard},</if>
+            <if test="ksProvince != null">#{ksProvince},</if>
+            <if test="ksProvinceCode != null">#{ksProvinceCode},</if>
+            <if test="ksCity != null">#{ksCity},</if>
+            <if test="ksCityCode != null">#{ksCityCode},</if>
+            <if test="ksDistrictCode != null">#{ksDistrictCode},</if>
+            <if test="ksDistrict != null">#{ksDistrict},</if>
+            <if test="ksAddressDetail != null">#{ksAddressDetail},</if>
+            <if test="ksRealNameStatus != null">#{ksRealNameStatus},</if>
+            <if test="ksDeliveryName != null">#{ksDeliveryName},</if>
+            <if test="ksDeliveryNumber != null">#{ksDeliveryNumber},</if>
+            <if test="iccid != null">#{iccid},</if>
+            <if test="skuNick != null">#{skuNick},</if>
+            <if test="signTime != null">#{signTime},</if>
+            <if test="signStatus != null">#{signStatus},</if>
+            <if test="age != null">#{age},</if>
+            <if test="sex != null">#{sex},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="orderCreateTime != null">#{orderCreateTime},</if>
+            <if test="orderSendTime != null">#{orderSendTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKsOrder" parameterType="com.ylc.component.kuaishou.domain.KsOrder">
+        update ks_order
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="orderStatus != null">order_status = #{orderStatus},</if>
+            <if test="ksBuyerNick != null">ks_buyer_nick = #{ksBuyerNick},</if>
+            <if test="ksBuyerRemark != null">ks_buyer_remark = #{ksBuyerRemark},</if>
+            <if test="appKey != null">app_key = #{appKey},</if>
+            <if test="openId != null">open_id = #{openId},</if>
+            <if test="ksShopName != null">ks_shop_name = #{ksShopName},</if>
+            <if test="ksOrderMobile != null">ks_order_mobile = #{ksOrderMobile},</if>
+            <if test="ksRealName != null">ks_real_name = #{ksRealName},</if>
+            <if test="ksIdCard != null">ks_id_card = #{ksIdCard},</if>
+            <if test="ksProvince != null">ks_province = #{ksProvince},</if>
+            <if test="ksProvinceCode != null">ks_province_code = #{ksProvinceCode},</if>
+            <if test="ksCity != null">ks_city = #{ksCity},</if>
+            <if test="ksCityCode != null">ks_city_code = #{ksCityCode},</if>
+            <if test="ksDistrictCode != null">ks_district_code = #{ksDistrictCode},</if>
+            <if test="ksDistrict != null">ks_district = #{ksDistrict},</if>
+            <if test="ksAddressDetail != null">ks_address_detail = #{ksAddressDetail},</if>
+            <if test="ksRealNameStatus != null">ks_real_name_status = #{ksRealNameStatus},</if>
+            <if test="ksDeliveryName != null">ks_delivery_name = #{ksDeliveryName},</if>
+            <if test="ksDeliveryNumber != null">ks_delivery_number = #{ksDeliveryNumber},</if>
+            <if test="iccid != null">iccid = #{iccid},</if>
+            <if test="skuNick != null">sku_nick = #{skuNick},</if>
+            <if test="signTime != null ">sign_time=#{signTime},</if>
+            <if test="signStatus != null and signStatus!=''">sign_status=#{signStatus},</if>
+            <if test="age != null">age=#{age},</if>
+            <if test="sex != null">sex=#{sex},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="orderCreateTime != null">order_create_time = #{orderCreateTime},</if>
+            <if test="orderSendTime != null">order_send_time = #{orderSendTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where order_id = #{orderId}
+    </update>
+
+    <delete id="deleteKsOrderByOrderId" parameterType="Long">
+        delete from ks_order where order_id = #{orderId}
+    </delete>
+
+    <delete id="deleteKsOrderByOrderIds" parameterType="String">
+        delete from ks_order where order_id in 
+        <foreach item="orderId" collection="array" open="(" separator="," close=")">
+            #{orderId}
+        </foreach>
+    </delete>
+</mapper>

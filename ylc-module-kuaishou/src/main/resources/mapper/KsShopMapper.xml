@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylc.component.kuaishou.mapper.KsShopMapper">
+    
+    <resultMap type="com.ylc.component.kuaishou.domain.KsShop" id="KsShopResult">
+        <result property="id"    column="id"    />
+        <result property="shopName"    column="shop_name"    />
+        <result property="ksAppKey"    column="ks_app_key"    />
+        <result property="ksShopId"    column="ks_shop_id"    />
+        <result property="ksShopType"    column="ks_shop_type"    />
+        <result property="ksShopChannel"    column="ks_shop_channel"    />
+        <result property="ksShopCreateTime"    column="ks_shop_create_time"    />
+        <result property="ksOrderSynchronize"    column="ks_order_synchronize"    />
+        <result property="openId"    column="open_id"    />
+        <result property="accessToken"    column="access_token"    />
+        <result property="refreshToken"    column="refresh_token"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectKsShopVo">
+        select id, shop_name, ks_order_synchronize,ks_app_key, ks_shop_id, ks_shop_type, ks_shop_channel, ks_shop_create_time, open_id, access_token, refresh_token, del_flag, create_by, create_time, update_by, update_time, remark from ks_shop
+    </sql>
+
+    <select id="selectKsShopList" parameterType="com.ylc.component.kuaishou.domain.KsShop" resultMap="KsShopResult">
+        <include refid="selectKsShopVo"/>
+        <where>  
+            <if test="shopName != null  and shopName != ''"> and shop_name like concat('%', #{shopName}, '%')</if>
+            <if test="ksAppKey != null  and ksAppKey != ''"> and ks_app_key = #{ksAppKey}</if>
+            <if test="ksShopId != null  and ksShopId != ''"> and ks_shop_id = #{ksShopId}</if>
+            <if test="ksShopType != null  and ksShopType != ''"> and ks_shop_type = #{ksShopType}</if>
+            <if test="ksShopChannel != null  and ksShopChannel != ''"> and ks_shop_channel = #{ksShopChannel}</if>
+            <if test="ksShopCreateTime != null "> and ks_shop_create_time = #{ksShopCreateTime}</if>
+            <if test="openId != null  and openId != ''"> and open_id = #{openId}</if>
+            <if test="accessToken != null  and accessToken != ''"> and access_token = #{accessToken}</if>
+            <if test="refreshToken != null  and refreshToken != ''"> and refresh_token = #{refreshToken}</if>
+        </where>
+    </select>
+    
+    <select id="selectKsShopById" parameterType="Long" resultMap="KsShopResult">
+        <include refid="selectKsShopVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectKsShopByKey" parameterType="java.lang.String" resultMap="KsShopResult">
+        <include refid="selectKsShopVo"/>
+        where ks_app_key = #{ksAppKey}
+    </select>
+
+    <select id="selectKsShopByOpenIdAndKey"  resultMap="KsShopResult">
+        <include refid="selectKsShopVo"/>
+        where open_id=#{openId} and ks_app_key =#{ksAppKey}
+    </select>
+
+
+        
+    <insert id="insertKsShop" parameterType="com.ylc.component.kuaishou.domain.KsShop" useGeneratedKeys="true" keyProperty="id">
+        insert into ks_shop
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="shopName != null">shop_name,</if>
+            <if test="ksAppKey != null">ks_app_key,</if>
+            <if test="ksShopId != null">ks_shop_id,</if>
+            <if test="ksShopType != null">ks_shop_type,</if>
+            <if test="ksShopChannel != null">ks_shop_channel,</if>
+            <if test="ksShopCreateTime != null">ks_shop_create_time,</if>
+            <if test="openId != null">open_id,</if>
+            <if test="accessToken != null">access_token,</if>
+            <if test="refreshToken != null">refresh_token,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="shopName != null">#{shopName},</if>
+            <if test="ksAppKey != null">#{ksAppKey},</if>
+            <if test="ksShopId != null">#{ksShopId},</if>
+            <if test="ksShopType != null">#{ksShopType},</if>
+            <if test="ksShopChannel != null">#{ksShopChannel},</if>
+            <if test="ksShopCreateTime != null">#{ksShopCreateTime},</if>
+            <if test="openId != null">#{openId},</if>
+            <if test="accessToken != null">#{accessToken},</if>
+            <if test="refreshToken != null">#{refreshToken},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKsShop" parameterType="com.ylc.component.kuaishou.domain.KsShop">
+        update ks_shop
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="shopName != null">shop_name = #{shopName},</if>
+            <if test="ksAppKey != null">ks_app_key = #{ksAppKey},</if>
+            <if test="ksShopId != null">ks_shop_id = #{ksShopId},</if>
+            <if test="ksShopType != null">ks_shop_type = #{ksShopType},</if>
+            <if test="ksShopChannel != null">ks_shop_channel = #{ksShopChannel},</if>
+            <if test="ksShopCreateTime != null">ks_shop_create_time = #{ksShopCreateTime},</if>
+            <if test="openId != null">open_id = #{openId},</if>
+            <if test="accessToken != null">access_token = #{accessToken},</if>
+            <if test="refreshToken != null">refresh_token = #{refreshToken},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="ksOrderSynchronize != null">ks_order_synchronize = #{ksOrderSynchronize},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKsShopById" parameterType="Long">
+        delete from ks_shop where id = #{id}
+    </delete>
+
+    <delete id="deleteKsShopByIds" parameterType="String">
+        delete from ks_shop where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

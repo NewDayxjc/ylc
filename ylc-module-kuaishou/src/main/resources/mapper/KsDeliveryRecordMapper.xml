@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylc.component.kuaishou.mapper.KsDeliveryRecordMapper">
+    
+    <resultMap type="com.ylc.component.kuaishou.domain.KsDeliveryRecord" id="KsDeliveryRecordResult">
+        <result property="id"    column="id"    />
+        <result property="total"    column="total"    />
+        <result property="totalSuccess"    column="total_success"    />
+        <result property="totalFail"    column="total_fail"    />
+        <result property="status"    column="status"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+    </resultMap>
+
+    <sql id="selectKsDeliveryRecordVo">
+        select id, total, total_success, total_fail, status, del_flag, create_by, create_time, update_by, update_time, remark from ks_delivery_record
+    </sql>
+
+    <select id="selectKsDeliveryRecordList" parameterType="com.ylc.component.kuaishou.domain.KsDeliveryRecord" resultMap="KsDeliveryRecordResult">
+        <include refid="selectKsDeliveryRecordVo"/>
+        <where>  
+            <if test="total != null "> and total = #{total}</if>
+            <if test="totalSuccess != null "> and total_success = #{totalSuccess}</if>
+            <if test="totalFail != null "> and total_fail = #{totalFail}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+        </where>
+
+        order by create_time desc
+
+    </select>
+    
+    <select id="selectKsDeliveryRecordById" parameterType="Long" resultMap="KsDeliveryRecordResult">
+        <include refid="selectKsDeliveryRecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertKsDeliveryRecord" parameterType="com.ylc.component.kuaishou.domain.KsDeliveryRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into ks_delivery_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="total != null">total,</if>
+            <if test="totalSuccess != null">total_success,</if>
+            <if test="totalFail != null">total_fail,</if>
+            <if test="status != null">status,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="total != null">#{total},</if>
+            <if test="totalSuccess != null">#{totalSuccess},</if>
+            <if test="totalFail != null">#{totalFail},</if>
+            <if test="status != null">#{status},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKsDeliveryRecord" parameterType="com.ylc.component.kuaishou.domain.KsDeliveryRecord">
+        update ks_delivery_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="total != null">total = #{total},</if>
+            <if test="totalSuccess != null">total_success = #{totalSuccess},</if>
+            <if test="totalFail != null">total_fail = #{totalFail},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKsDeliveryRecordById" parameterType="Long">
+        delete from ks_delivery_record where id = #{id}
+    </delete>
+
+    <delete id="deleteKsDeliveryRecordByIds" parameterType="String">
+        delete from ks_delivery_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylc.component.kuaishou.mapper.KsAppMapper">
+    
+    <resultMap type="com.ylc.component.kuaishou.domain.KsApp" id="KsAppResult">
+        <result property="id"    column="id"    />
+        <result property="ksAppKey"    column="ks_app_key"    />
+        <result property="ksAppSecret"    column="ks_app_secret"    />
+        <result property="ksSignSecret"    column="ks_sign_secret"    />
+        <result property="ksMessageSecret"    column="ks_message_secret"    />
+        <result property="ksOrderSynchronize"    column="ks_order_synchronize"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="ksAppName"    column="ks_app_name"    />
+        <collection property="ksShopList" column="ks_app_key" select="com.ylc.component.kuaishou.mapper.KsShopMapper.selectKsShopByKey"/>
+    </resultMap>
+
+    <sql id="selectKsAppVo">
+        select id, ks_app_key, ks_app_secret, ks_sign_secret, ks_message_secret, ks_order_synchronize, del_flag, create_by, create_time, update_by, update_time, remark, ks_app_name from ks_app
+    </sql>
+
+    <select id="selectKsAppList" parameterType="com.ylc.component.kuaishou.domain.KsApp" resultMap="KsAppResult">
+        <include refid="selectKsAppVo"/>
+        <where>  
+            <if test="ksAppKey != null  and ksAppKey != ''"> and ks_app_key = #{ksAppKey}</if>
+            <if test="ksAppSecret != null  and ksAppSecret != ''"> and ks_app_secret = #{ksAppSecret}</if>
+            <if test="ksSignSecret != null  and ksSignSecret != ''"> and ks_sign_secret = #{ksSignSecret}</if>
+            <if test="ksMessageSecret != null  and ksMessageSecret != ''"> and ks_message_secret = #{ksMessageSecret}</if>
+            <if test="ksOrderSynchronize != null "> and ks_order_synchronize = #{ksOrderSynchronize}</if>
+            <if test="ksAppName != null  and ksAppName != ''"> and ks_app_name like concat('%', #{ksAppName}, '%')</if>
+        </where>
+    </select>
+    
+    <select id="selectKsAppById" parameterType="Long" resultMap="KsAppResult">
+        <include refid="selectKsAppVo"/>
+        where id = #{id}
+    </select>
+
+    <select id="selectKsAppByKey" parameterType="java.lang.String" resultMap="KsAppResult">
+        <include refid="selectKsAppVo"/>
+        where ks_app_key = #{ksAppKey}
+    </select>
+        
+    <insert id="insertKsApp" parameterType="com.ylc.component.kuaishou.domain.KsApp" useGeneratedKeys="true" keyProperty="id">
+        insert into ks_app
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="ksAppKey != null">ks_app_key,</if>
+            <if test="ksAppSecret != null">ks_app_secret,</if>
+            <if test="ksSignSecret != null">ks_sign_secret,</if>
+            <if test="ksMessageSecret != null">ks_message_secret,</if>
+            <if test="ksOrderSynchronize != null">ks_order_synchronize,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="ksAppName != null">ks_app_name,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="ksAppKey != null">#{ksAppKey},</if>
+            <if test="ksAppSecret != null">#{ksAppSecret},</if>
+            <if test="ksSignSecret != null">#{ksSignSecret},</if>
+            <if test="ksMessageSecret != null">#{ksMessageSecret},</if>
+            <if test="ksOrderSynchronize != null">#{ksOrderSynchronize},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="ksAppName != null">#{ksAppName},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKsApp" parameterType="com.ylc.component.kuaishou.domain.KsApp">
+        update ks_app
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="ksAppKey != null">ks_app_key = #{ksAppKey},</if>
+            <if test="ksAppSecret != null">ks_app_secret = #{ksAppSecret},</if>
+            <if test="ksSignSecret != null">ks_sign_secret = #{ksSignSecret},</if>
+            <if test="ksMessageSecret != null">ks_message_secret = #{ksMessageSecret},</if>
+            <if test="ksOrderSynchronize != null">ks_order_synchronize = #{ksOrderSynchronize},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="ksAppName != null">ks_app_name = #{ksAppName},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKsAppById" parameterType="Long">
+        delete from ks_app where id = #{id}
+    </delete>
+
+    <delete id="deleteKsAppByIds" parameterType="String">
+        delete from ks_app where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>

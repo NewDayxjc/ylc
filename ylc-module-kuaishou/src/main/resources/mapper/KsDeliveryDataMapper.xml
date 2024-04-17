@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ylc.component.kuaishou.mapper.KsDeliveryDataMapper">
+    
+    <resultMap type="com.ylc.component.kuaishou.domain.KsDeliveryData" id="KsDeliveryDataResult">
+        <result property="id"    column="id"    />
+        <result property="deliveryRecordId"    column="delivery_record_id"    />
+        <result property="deliveryName"    column="delivery_name"    />
+        <result property="deliveryNumber"    column="delivery_number"    />
+        <result property="deliveryTime"    column="delivery_time"    />
+        <result property="status"    column="status"    />
+        <result property="shopName"    column="shop_name"    />
+        <result property="nativeNumber"    column="native_number"    />
+        <result property="serialNumber"    column="serial_number"    />
+        <result property="deliveryDescribe"    column="delivery_describe"    />
+        <result property="delFlag"    column="del_flag"    />
+        <result property="createBy"    column="create_by"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateBy"    column="update_by"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="remark"    column="remark"    />
+        <result property="signTime" column="sign_time"/>
+        <result property="signStatus" column="sign_status"/>
+    </resultMap>
+
+    <sql id="selectKsDeliveryDataVo"> select id, delivery_record_id, delivery_name, delivery_number, delivery_time, status, shop_name, native_number, serial_number, delivery_describe, del_flag, create_by, create_time, update_by, update_time, remark, sign_time, sign_status from ks_delivery_data </sql>
+
+    <select id="selectKsDeliveryDataList" parameterType="com.ylc.component.kuaishou.domain.KsDeliveryData" resultMap="KsDeliveryDataResult">
+        <include refid="selectKsDeliveryDataVo"/>
+        <where>  
+            <if test="deliveryRecordId != null "> and delivery_record_id = #{deliveryRecordId}</if>
+            <if test="deliveryName != null  and deliveryName != ''"> and delivery_name like concat('%', #{deliveryName}, '%')</if>
+            <if test="deliveryNumber != null  and deliveryNumber != ''"> and delivery_number = #{deliveryNumber}</if>
+            <if test="deliveryTime != null "> and delivery_time = #{deliveryTime}</if>
+            <if test="status != null  and status != ''"> and status = #{status}</if>
+            <if test="shopName != null  and shopName != ''"> and shop_name like concat('%', #{shopName}, '%')</if>
+            <if test="nativeNumber != null  and nativeNumber != ''"> and native_number = #{nativeNumber}</if>
+            <if test="serialNumber != null  and serialNumber != ''"> and serial_number = #{serialNumber}</if>
+            <if test="deliveryDescribe != null  and deliveryDescribe != ''"> and delivery_describe = #{deliveryDescribe}</if>
+            <if test="signTime != null "> and sign_time = #{signTime}</if>
+            <if test="signStatus != null and signStatus != ''"> and sign_status = #{signStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectKsDeliveryDataById" parameterType="Long" resultMap="KsDeliveryDataResult">
+        <include refid="selectKsDeliveryDataVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertKsDeliveryData" parameterType="com.ylc.component.kuaishou.domain.KsDeliveryData" useGeneratedKeys="true" keyProperty="id">
+        insert into ks_delivery_data
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="deliveryRecordId != null">delivery_record_id,</if>
+            <if test="deliveryName != null">delivery_name,</if>
+            <if test="deliveryNumber != null">delivery_number,</if>
+            <if test="deliveryTime != null">delivery_time,</if>
+            <if test="status != null">status,</if>
+            <if test="shopName != null">shop_name,</if>
+            <if test="nativeNumber != null">native_number,</if>
+            <if test="serialNumber != null">serial_number,</if>
+            <if test="deliveryDescribe != null">delivery_describe,</if>
+            <if test="delFlag != null">del_flag,</if>
+            <if test="createBy != null">create_by,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateBy != null">update_by,</if>
+            <if test="updateTime != null">update_time,</if>
+            <if test="remark != null">remark,</if>
+            <if test="signTime != null">sign_time,</if>
+            <if test="signStatus != null">sign_status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="deliveryRecordId != null">#{deliveryRecordId},</if>
+            <if test="deliveryName != null">#{deliveryName},</if>
+            <if test="deliveryNumber != null">#{deliveryNumber},</if>
+            <if test="deliveryTime != null">#{deliveryTime},</if>
+            <if test="status != null">#{status},</if>
+            <if test="shopName != null">#{shopName},</if>
+            <if test="nativeNumber != null">#{nativeNumber},</if>
+            <if test="serialNumber != null">#{serialNumber},</if>
+            <if test="deliveryDescribe != null">#{deliveryDescribe},</if>
+            <if test="delFlag != null">#{delFlag},</if>
+            <if test="createBy != null">#{createBy},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateBy != null">#{updateBy},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+            <if test="remark != null">#{remark},</if>
+            <if test="signTime != null">#{signTime},</if>
+            <if test="signStatus != null">#{signStatus},</if>
+         </trim>
+    </insert>
+
+    <update id="updateKsDeliveryData" parameterType="com.ylc.component.kuaishou.domain.KsDeliveryData">
+        update ks_delivery_data
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="deliveryRecordId != null">delivery_record_id = #{deliveryRecordId},</if>
+            <if test="deliveryName != null">delivery_name = #{deliveryName},</if>
+            <if test="deliveryNumber != null">delivery_number = #{deliveryNumber},</if>
+            <if test="deliveryTime != null">delivery_time = #{deliveryTime},</if>
+            <if test="status != null">status = #{status},</if>
+            <if test="shopName != null">shop_name = #{shopName},</if>
+            <if test="nativeNumber != null">native_number = #{nativeNumber},</if>
+            <if test="serialNumber != null">serial_number = #{serialNumber},</if>
+            <if test="deliveryDescribe != null">delivery_describe = #{deliveryDescribe},</if>
+            <if test="delFlag != null">del_flag = #{delFlag},</if>
+            <if test="createBy != null">create_by = #{createBy},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateBy != null">update_by = #{updateBy},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+            <if test="remark != null">remark = #{remark},</if>
+            <if test="signTime != null">sign_time = #{signTime},</if>
+            <if test="signStatus != null">sign_status = #{signStatus},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteKsDeliveryDataById" parameterType="Long">
+        delete from ks_delivery_data where id = #{id}
+    </delete>
+
+    <delete id="deleteKsDeliveryDataByIds" parameterType="String">
+        delete from ks_delivery_data where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+</mapper>
